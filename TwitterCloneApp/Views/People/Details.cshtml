@@ -1,0 +1,45 @@
+﻿@model TwitterCloneApp.PERSON
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Profile";
+}
+
+
+    <div>
+        <h2>@ViewBag.Title</h2>
+        <h3>@ViewBag.Message</h3>
+        <hr />
+        <dl class="dl-horizontal">
+           
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.fullName)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.fullName)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.password)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.password)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.user_id }) |
+        @Html.ActionLink("Delete Account", "Delete", new { id = Model.user_id }) |
+
+    </p>

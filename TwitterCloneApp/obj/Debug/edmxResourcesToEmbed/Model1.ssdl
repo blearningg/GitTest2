@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="masterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'master.dbo.Following' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Following">
+    <Key>
+      <PropertyRef Name="user_id" />
+      <PropertyRef Name="following_id" />
+    </Key>
+    <Property Name="user_id" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="following_id" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PERSON">
+    <Key>
+      <PropertyRef Name="user_id" />
+    </Key>
+    <Property Name="user_id" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="fullName" Type="varchar" MaxLength="50" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="JoinedDate" Type="datetime" />
+    <Property Name="Active" Type="bit" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'master.dbo.Tweet' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Tweet">
+    <Key>
+      <PropertyRef Name="tweet_id" />
+      <PropertyRef Name="user_id" />
+    </Key>
+    <Property Name="tweet_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user_id" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="message" Type="varchar" MaxLength="150" />
+    <Property Name="created" Type="datetime" />
+  </EntityType>
+  <Association Name="FK__Tweet__user_id__45A94D10">
+    <End Role="PERSON" Type="Self.PERSON" Multiplicity="1" />
+    <End Role="Tweet" Type="Self.Tweet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PERSON">
+        <PropertyRef Name="user_id" />
+      </Principal>
+      <Dependent Role="Tweet">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_following_id">
+    <End Role="PERSON" Type="Self.PERSON" Multiplicity="1" />
+    <End Role="Following" Type="Self.Following" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PERSON">
+        <PropertyRef Name="user_id" />
+      </Principal>
+      <Dependent Role="Following">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_userID">
+    <End Role="PERSON" Type="Self.PERSON" Multiplicity="1" />
+    <End Role="Following" Type="Self.Following" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PERSON">
+        <PropertyRef Name="user_id" />
+      </Principal>
+      <Dependent Role="Following">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="masterModelStoreContainer">
+    <EntitySet Name="PERSON" EntityType="Self.PERSON" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Following" EntityType="Self.Following" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Tweet" EntityType="Self.Tweet" store:Type="Tables" Schema="dbo" />
+  </EntityContainer>
+</Schema>

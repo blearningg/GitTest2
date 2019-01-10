@@ -1,0 +1,61 @@
+﻿@model TwitterCloneApp.TweetViewModel
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+
+    @using (Html.BeginForm("Update","Home"))
+    {
+        @Html.AntiForgeryToken()
+   
+        <div class="form-horizontal">
+            <h4>What are you doing?</h4>
+            <div class="form-group">
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.tweet.message, new { @class = "form-control tweettextarea" })
+                    @Html.ValidationMessageFor(model => model.tweet.message, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <input type="submit" value="Upate" class="btn btn-primary floatright" />
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+<h4>Tweets</h4>
+<div class="row table-bordered">
+    
+    <table class="table">
+        @foreach (var item in Model.Tweets)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PERSON.user_id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.message)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.created)
+                </td>
+                <td>
+                    @if (item.user_id == Session["UserID"].ToString())
+                    {
+                        <input type="button" title="Edit" value="Edit" class="btn btn-sm btn-primary" onclick="location.href='@Url.Action("Edit", "Tweets", new { id = item.tweet_id })'" /> 
+                        <input type = "button" title = "Delete" class="btn btn-sm btn-primary" value="Delete" onclick="location.href='@Url.Action("Delete", "Tweets", new { id = item.tweet_id })'" />
+                    }
+
+                   
+                </td>
+            </tr>
+        }
+
+    </table>
+
+
+</div>
